@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>零件解析台原型</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon">🧩</span>
+        <div>
+          <h1>零件解析台</h1>
+          <p>批量无序图纸 → 候选零件分组 → 校验修正 → 入库</p>
+        </div>
+      </div>
+      <button id="toggleSmartGrouping" class="btn btn-secondary">关闭系统分组</button>
+    </header>
+
+    <main class="layout">
+      <section class="panel groups-panel">
+        <div class="panel-header">
+          <h2>候选零件分组</h2>
+          <div class="actions">
+            <button id="mergeBtn" class="btn">合并选中分组</button>
+          </div>
+        </div>
+        <p class="hint">支持：勾选分组后合并；在详情中可移出文件拆分为新零件；文件可跨组移动。</p>
+        <div id="groupList" class="group-list"></div>
+      </section>
+
+      <section class="panel detail-panel">
+        <div class="panel-header">
+          <h2 id="detailTitle">零件详情</h2>
+          <span id="riskBadge" class="risk-badge hidden">⚠ 缺主图</span>
+        </div>
+
+        <div id="detailContent" class="detail-content empty">
+          请选择左侧候选零件组查看详情。
+        </div>
+      </section>
+    </main>
+
+    <template id="detailTemplate">
+      <div class="detail-grid">
+        <div class="file-block">
+          <h3>图纸文件（主图优先级：3D / PDF / 2D）</h3>
+          <div id="fileList"></div>
+        </div>
+
+        <div class="form-block">
+          <h3>零件信息（自动识别，可修改）</h3>
+          <form id="partForm" class="part-form">
+            <label>零件名<input name="name" required /></label>
+            <label>规格尺寸<input name="size" /></label>
+            <label>材料<input name="material" /></label>
+            <label>工艺<input name="process" /></label>
+            <label>表面处理<input name="surfaceTreatment" /></label>
+            <label>热处理<input name="heatTreatment" /></label>
+            <label>表面粗糙度<input name="roughness" /></label>
+            <label>最小公差<input name="tolerance" /></label>
+            <label>技术要求<textarea name="technicalRequirement" rows="3"></textarea></label>
+          </form>
+          <button id="confirmBtn" class="btn btn-primary">确认入库并查看详情页</button>
+        </div>
+      </div>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
